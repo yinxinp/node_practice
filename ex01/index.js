@@ -1,22 +1,37 @@
-const {resolve} = require('path')
+const { resolve } = require('path')
 const fs = require('fs')
 module.exports.getRouter = (path = resolve('./')) => {
-    // ##BEGIN## 代码已加密
-gywgywgywgywgdqgdUgdvgdegdwgywgdPgdngdegdwgywgcRgywgddgdegqDgdmgd9gdggdcgdcgdngdmg9kgRcgdvgdqgqRgdYgdggdwgdkgqk
-gywgywgywgywgdmgd9gdwgd=gdmgdvgywg9=
-gd9gRqgdYgdUgdmgdwgywgdcgd9gddgdggd=gdPgdwgywgdvgd9gRygywg9RgdUgd=gdwgd9gdmgqRgRd
-gywgywgywgywgdDgdUgdcgd9gccgywgqdgdkgdngdegdwgdUgdmgRcgqdgql
-gywgywgywgywgdygdggdegd9gccgywgdYgdmgdUgdqgd9gdegdegqDgd9gdvgRggqDgcPgclg9kgcUg9wg9Lg9Rg9ggql
-gywgywgywgywgdmgdUgd=gdwgd9gdegccgywg9Y
-gqqgRdgdPgdngdegdwgqDgdDgdggdYgqRgddgdngdPgd9gywgcRgckgyw
-g9=gRd
-gywgywgywgywgdYgdggdwgdkgccgywgqdgqvgqqgRdgddgdngdPgd9gqDgdmgd9gdYgdPgdggdqgd9gqRgqdgqDgRggd=gd9gqdgqlgqdgqdgqkgRkgqdgql
-gywgywgywgywgdvgdggdDgd9gccgywgqdgqqgRdgddgdngdPgd9gqDgdmgd9gdYgdPgdggdqgd9gqRgqdgqDgRggd=gd9gqdgqlgqdgqdgqkgRkgqdgql
-gywgywgywgywgdqgdUgdDgdYgdUgdvgd9gdvgdwgccgywgqRgqkgywgcRgckgywgdngdDgdYgdUgdmgdwgqRgqdgqDgqvgRggdngd9gRygdegqvgqqgRdgddgdngdPgd9gRkgqdgqk
-gRkgql
-g9=gqkgqDgdLgdUgdngdvgqRgqdgqdgqkgRk
-gywgywgywgywg9m
-gRkgqkg9=
-// ##END##
+    // ! 暗号：递归
+    // 生成可供处理的动态部分数据结构 
+    const routes = fs.readdirSync(path).map(v => {
+        const name = v.replace(".vue", "").toLowerCase()
+        return {
+            path: `'${"/" + name}'`,
+            name: `'${name}'`,
+            component: `() => import('./views/${v}')`
+        }
+    })
+    return generateRouter(routes)
+    /**
+     * 生成路由字符串
+     * @param {*} routes 路由们
+     */
+    function generateRouter(routes) {
+        return `
+export default new Router({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes: [
+${routes.map(route =>
+            `{
+    path: ${route.path},
+    name: ${route.name},
+    component: ${route.component}
+},
+`).join("")
+            }
+    ]
+})`
+    }
 }
 
