@@ -1,34 +1,28 @@
 const Sequelize = require('sequelize');
+// ! 暗号：哈希算法
 module.exports.initModel = async sequelize => {
-  // ##BEGIN## 代码已加密
-gywgywg9Lgdegd9gdmgywgcRgywgdegd9gdHgd=gd9gdPgdngR9gd9gqDgdcgd9gddgdngdvgd9gqRgqdgd=gdegd9gdmgqdgqlgywgRd
-gywgywgywgywgdngdcgccgywgRd
-gywgywgywgywgywgywgdwgRcgdYgd9gccgywg9kgd9gdHgd=gd9gdPgdngR9gd9gqDgceg9qg9ngcUgcHgcUg9Rgql
-gywgywgywgywgywgywgdggd=gdwgdUgcegdvgdqgdmgd9gdDgd9gdvgdwgccgywgdwgdmgd=gd9gql
-gywgywgywgywgywgywgdggdPgdPgdUgRyg9qgd=gdPgdPgccgywgddgdggdPgdegd9gql
-gywgywgywgywgywgywgdYgdmgdngdDgdggdmgRcgc=gd9gRcgccgywgdwgdmgd=gd9
-gywgywgywgywgRkgql
-gywgywgywgywgdvgdggdDgd9gccgywg9kgd9gdHgd=gd9gdPgdngR9gd9gqDg9kg9ng9Rgceg9qgcH
-gywgywgRkgqkgc9
-
-gywgywg99gdmgdUgdcgd=gdqgdwgywgcRgywgdegd9gdHgd=gd9gdPgdngR9gd9gqDgdcgd9gddgdngdvgd9gqRgqdgdYgdmgdUgdcgd=gdqgdwgqdgqlgywgRd
-gywgywgywgywgdngdcgccgywgRd
-gywgywgywgywgywgywgdwgRcgdYgd9gccgywg9kgd9gdHgd=gd9gdPgdngR9gd9gqDgceg9qg9ngcUgcHgcUg9Rgql
-gywgywgywgywgywgywgdggd=gdwgdUgcegdvgdqgdmgd9gdDgd9gdvgdwgccgywgdwgdmgd=gd9gql
-gywgywgywgywgywgywgdggdPgdPgdUgRyg9qgd=gdPgdPgccgywgddgdggdPgdegd9gql
-gywgywgywgywgywgywgdYgdmgdngdDgdggdmgRcgc=gd9gRcgccgywgdwgdmgd=gd9
-gywgywgywgywgRkgql
-gywgywgywgywgdwgdngdwgdPgd9gccgywgRd
-gywgywgywgywgywgywgdwgRcgdYgd9gccgywg9kgd9gdHgd=gd9gdPgdngR9gd9gqDg9kg9ng9Rgceg9qgcHgql
-gywgywgywgywgywgywgdggdPgdPgdUgRyg9qgd=gdPgdPgccgywgddgdggdPgdegd9
-gywgywgywgywgRkgql
-gywgywgRkgqkgc9
-gywgywg99gdmgdUgdcgd=gdqgdwgqDgdygd9gdPgdUgdvgdRgdeg9ngdUgqRg9Lgdegd9gdmgqlgywgRd
-gywgywgywgywgdqgdUgdvgdegdwgdmgdggdngdvgdwgdegccgywgdwgdmgd=gd9gql
-gywgywgywgywgdUgdvgcvgd9gdPgd9gdwgd9gccgywgqdgcDgclg9kgcDgclgcvgcUgqd
-gywgywgRkgqkgc9
-gywgywg9Lgdegd9gdmgqDgdkgdggdeg9ygdggdvgRcgqRg99gdmgdUgdcgd=gdqgdwgqkgc9
-gywgywgdggRygdggdngdwgywgdegd9gdHgd=gd9gdPgdngR9gd9gqDgdegRcgdvgdqgqRgdwgdmgd=gd9gqk
-  // ##END##
+  const idConfig = {
+    type: Sequelize.DataTypes.UUID,
+    defaultValue: Sequelize.DataTypes.UUIDV1,
+    primaryKey: true
+  }
+  // User model
+  const User = sequelize.define("User", {
+    idConfig,
+    name: { type: Sequelize.STRING(20), allowNull: false }
+  });
+  // Product model
+  const Product = sequelize.define("Product", {
+    idConfig,
+    title: { type: Sequelize.STRING(20), allowNull: false }
+  })
+  // 建立两个模型之间的联系
+  Product.belongsTo(User, {
+    constrains: true,
+    onDelete: "CASCADE"
+  })
+  User.hasMany(Product)
+  // 同步
+  await sequelize.sync()
   return { User, Product }
 } 
