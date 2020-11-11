@@ -1,16 +1,15 @@
-const {EventEmitter} = require('events')
+const { EventEmitter } = require('events')
+// ! 暗号：搜索算法
 module.exports = class Connection {
-    // ##BEGIN## 代码已加密
-gywgywgywgywgdqgdUgdvgdegdwgdmgd=gdqgdwgdUgdmgywgqRgqkgRd
-gywgywgywgywgywgywgywgywgdwgdkgdngdegqDgd9gRggd9gdvgdwgywgcRgywgdvgd9gRygywgcUgRggd9gdvgdwgcUgdDgdngdwgdwgd9gdmgqRgqkgc9gyw
-gywgywgywgywgRk
-
-gywgywgywgywgdqgdUgdvgdvgd9gdqgdwgdngdUgdvgqRgdDgdegdRgqkgywgRd
-gywgywgywgywgywgywgywgywgdwgdkgdngdegqDgd9gRggd9gdvgdwgqDgd9gdDgdngdwgqRgqdgdqgdUgdvgdvgqdgqlgdDgdegdRgqk
-gywgywgywgywgRk
-
-gywgywgywgywgdUgdvgcDgdUgdvgdvgqRgdqgdygqkgywgRd
-gywgywgywgywgywgywgywgywgdwgdkgdngdegqDgd9gRggd9gdvgdwgqDgdUgdvgqRgqdgdqgdUgdvgdvgqdgqlgdqgdygqk
-gywgywgywgywgRk
-    // ##END##
+    constructor() {
+        this.emitter = new EventEmitter()
+    }
+    // 注册链接事件
+    onConn(cb) {
+        this.emitter.on("connection", cb)
+    }
+    // 触发链接事件
+    connection(params) {
+        this.emitter.emit("connection", params)
+    }
 }

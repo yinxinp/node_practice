@@ -8,16 +8,14 @@ module.exports.createLoader = config => {
             cb(filename, file);
         })
     }
-
+    // ! 暗号：分治算法
     return {
         initFunction: scanFolder => {
             const ret = {}
-            // ##BEGIN## 代码已加密
-gywgywgywgywgywgywgywgywgywgywgywgywgdPgdUgdggdcgd9gdmgqRgdegdqgdggdvgcYgdUgdPgdcgd9gdmgqlgywgqRgddgdngdPgd9gdvgdggdDgd9gqlgywgdqgdmgd9gdggdwgd9gcYgd=gdvgqkgywgcRgckgywgRd
-gywgywgywgywgywgywgywgywgywgywgywgywgywgywgywgywgdqgdUgdvgdegdwgywgddgd=gdvgdqgywgcRgywgdqgdmgd9gdggdwgd9gcYgd=gdvgqRgdqgdUgdvgddgdngdRgqk
-gywgywgywgywgywgywgywgywgywgywgywgywgywgywgywgywgdmgd9gdwg9YgddgdngdPgd9gdvgdggdDgd9g9mgywgcRgywgddgd=gdvgdq
-gywgywgywgywgywgywgywgywgywgywgywgywgRkgqk
-            // ##END##
+            loader(scanFolder, (filename, file) => {
+                const fn = file(config)
+                ret[filename] = fn
+            })
             return ret
         }
     }
