@@ -14,8 +14,8 @@
   "dependencies": {
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
-    "jest": "^26.0.1",
     "sequelize": "^6.3.5",
     "sqlite3": "^4.2.0"
-  }
+  },
+  "devDependencies": {}
 }
